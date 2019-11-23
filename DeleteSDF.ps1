@@ -1,4 +1,4 @@
-$TxtPath = "InsertPathHere"
+$TxtPath = "Insert Path Here"
 $File = Import-Csv $TxtPath
 $Computers = $File.Computers
 
@@ -32,17 +32,17 @@ function StartService($Service, $Status)
 foreach($Computer in $Computers)
 {
     Enter-PSSession -ComputerName $Computer
-    $Service = wuauserv
+    $Service = "wuauserv"
     $Status = (Get-Service -Name "$Service").status
     StopService $Service $Status
-    $Service = bits
+    $Service = "bits"
     $Status = (Get-Service -Name "$Service").status
     StopService $Service $Status
     Remove-Item -Path C:\Windows\SoftwareDistribution -recurse
-    $Service = wuauserv
+    $Service = "wuauserv"
     $Status = (Get-Service -Name "$Service").status
     StartService $Service $Status
-    $Service = bits
+    $Service = "bits"
     $Status = (Get-Service -Name "$Service").status
     StartService $Service $Status
     Exit-PSSession
